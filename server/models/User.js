@@ -41,14 +41,27 @@ const userSchema = new mongoose.Schema({
     default: 'user'
   },
   addresses: [addressSchema],
+  preferences: {
+    gender: { type: String },
+    ageRange: { type: String },
+    style: [{ type: String }],
+    fit: { type: String },
+    budget: { type: String },
+    categories: [{ type: String }],
+    onboardingCompleted: { type: Boolean, default: false }
+  },
   createdAt: {
     type: Date,
     default: Date.now
-  }
+  },
+  updatedAt: { type: Date, default: Date.now }
 });
 
 // Encrypt password using bcrypt
 userSchema.pre('save', async function(next) {
+  // Update timestamp
+  this.updatedAt = Date.now();
+  
   if (!this.isModified('password')) {
     next();
   }

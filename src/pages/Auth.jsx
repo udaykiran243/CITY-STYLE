@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Navigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { getAdditionalUserInfo } from 'firebase/auth';
 import '../styles/Auth.css';
 
 /* ──────────────────────────────────────────────
@@ -115,19 +116,10 @@ const Auth = () => {
     try {
       if (isLogin) {
         await login(email, password);
-        navigate('/profile');
+        navigate('/shop');
       } else {
         await register(fullName.trim(), email, password);
-        // Show success message
-        setSuccessMessage('Account created successfully! Switching to Login...');
-        
-        // Wait briefly to show the success message, then switch to login mode automatically
-        setTimeout(() => {
-          setSuccessMessage('');
-          setIsLogin(true); // Switch to login form
-          setPassword('');  // Clear sensitive fields
-          setConfirmPassword('');
-        }, 1500);
+        navigate('/onboarding');
       }
     } catch (err) {
       setError(getErrorMessage(err));
@@ -142,8 +134,13 @@ const Auth = () => {
     setLoading(true);
 
     try {
-      await loginWithGoogle();
-      navigate('/profile');
+      const result = await loginWithGoogle();
+      const additionalInfo = getAdditionalUserInfo(result);
+      if (additionalInfo?.isNewUser) {
+        navigate('/onboarding');
+      } else {
+        navigate('/shop');
+      }
     } catch (err) {
       setError(getErrorMessage(err));
     } finally {

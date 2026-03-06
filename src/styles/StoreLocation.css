@@ -6,7 +6,7 @@
 
 .store-location__content {
     display: flex;
-    flex-wrap: wrap-reverse; /* Map on top on mobile? Or side by side. Default wrap puts map below if column. */
+    flex-direction: column; /* explicit base layout */
     gap: 2rem;
 }
 
@@ -80,9 +80,8 @@
     border: 0;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
     .store-location__content {
-        flex-direction: column-reverse; /* Details on bottom, map on top? Usually details first is better for "Find Us". Let's stick to normal column */
         flex-direction: column;
     }
     

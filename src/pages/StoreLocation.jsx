@@ -40,7 +40,7 @@ const StoreLocation = () => {
                     <iframe 
                         title="City Style Store Location"
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3023.2354784650395!2d-74.00293092408332!3d40.72382907139151!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c2598f988156a9%3A0xd54629bdf9d61d68!2sSoHo%2C%20New%20York%2C%20NY!5e0!3m2!1sen!2sus!4v1709664654321!5m2!1sen!2sus" 
-                        allowFullScreen="" 
+                        allowFullScreen 
                         loading="lazy" 
                         referrerPolicy="no-referrer-when-downgrade">
                     </iframe>
